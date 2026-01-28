@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SCELETON KRŪ - Gigs &amp; Reviews</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D41121",
+                        "background-light": "#fcf7f3",
+                        "background-dark": "#121212",
+                        "surface-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for the horizontal reviews section */
+        .hide-scrollbar::-webkit-scrollbar {
+            height: 8px;
+        }
+        .hide-scrollbar::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        .hide-scrollbar::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #D41121;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#2b0b10] dark:text-white font-display overflow-x-hidden selection:bg-primary selection:text-black">
+<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/90 backdrop-blur-md" data-menu>
+<div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+<div class="flex items-center">
+<a href="index.html">
+<img alt="Sceleton Krū logo" class="h-10 w-auto" src="images/sceleton-logo.png"/>
+</a>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="gigs&reviews.html">Tour</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="songroaster.html">Music</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="bio.html">The Band</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="contact.html">Contact</a>
+</div>
+<div class="hidden md:block">
+<a class="bg-primary text-background-dark hover:bg-white transition-all duration-300 font-bold text-sm px-6 py-2.5 rounded-sm uppercase tracking-wider transform hover:-translate-y-0.5 inline-flex items-center" href="contact.html">
+                    Book Now
+                </a>
+</div>
+<button class="md:hidden text-white" type="button" data-menu-toggle>
+<span class="material-symbols-outlined text-3xl" data-menu-open>menu</span>
+<span class="material-symbols-outlined text-3xl hidden" data-menu-close>close</span>
+</button>
+</div>
+<div class="md:hidden hidden border-t border-white/10 bg-background-dark/95 backdrop-blur-md" data-menu-dropdown>
+<div class="px-6 py-4 flex flex-col gap-4">
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="gigs&reviews.html">Tour</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="songroaster.html">Music</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="bio.html">The Band</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="contact.html">Contact</a>
+<a class="bg-primary text-background-dark hover:bg-white transition-all duration-300 font-bold text-sm px-6 py-2.5 rounded-sm uppercase tracking-wider text-center" href="contact.html">Book Now</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Container with Noise Texture -->
+<main class="relative pt-24 min-h-screen flex flex-col items-center w-full bg-background-dark before:content-[''] before:absolute before:inset-0 before:bg-noise before:pointer-events-none before:fixed">
+<div class="layout-content-container flex flex-col w-full max-w-[1280px] px-4 md:px-8 lg:px-12 relative z-10">
+<!-- Hero / Header Section -->
+<section class="relative py-12 md:py-20 flex flex-col gap-4 border-b border-[#333] overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="High energy rock concert crowd with stage lights and smoke" class="h-full w-full object-cover object-center contrast-125" data-alt="High energy rock concert crowd with stage lights and smoke" src="images/Background-hero-image.jpg"/>
+<div class="absolute inset-0 bg-background-dark/70"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/80 via-transparent to-background-dark/80"></div>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-6">
+<div>
+<h1 class="text-6xl md:text-8xl lg:text-[7rem] font-black leading-[0.9] tracking-tighter text-white uppercase">
+                            Upcoming<br/><span class="text-primary">Gigs</span>
+</h1>
+<p class="mt-6 text-gray-400 max-w-lg text-lg font-medium">
+                            The "Bone Rattler" world tour is officially underway. Experience the raw energy, the sweat, and the sound that's waking the dead.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Asymmetric Grid: Tour Dates & Visual -->
+<section class="py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Col: Visual Anchor (Sticky on Desktop) -->
+<div class="lg:col-span-5 relative">
+<div class="lg:sticky lg:top-32 flex flex-col gap-6">
+<div class="relative aspect-[4/5] w-full rounded-sm overflow-hidden border border-[#333]">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+<img alt="Lead singer screaming into a microphone under dramatic stage lighting" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700 ease-in-out" data-alt="Lead singer screaming into a microphone under dramatic stage lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhsLhTSbvPxLz7QjTUUtnKhLEfuSSMlXODDDVz_qTp1d5uXX1mYwrDvneCp20dD9AAKKHAJz9mpuHxi_OBkKSkMMRtFrgpcHVHBHZ-hHJwgD5_Xc4vYLOHJf6E73AKxQgnye6wdxwMUKXTFM_lspiF4Gpb_7XVrONMEUZ8aN0Jd1zqlBnpODTfJl16ucp_VmiGjVW2q8Ll7Pq5ibQEipeEiGsylj5ArwcmrAHqsc8BW45K-OO63_OtlHCx5zYFn3ObKfhgDWFFiIo"/>
+<div class="absolute bottom-0 left-0 p-8 z-20">
+<div class="bg-primary text-background-dark text-xs font-black inline-block px-2 py-1 mb-2">NEXT SHOW</div>
+<h3 class="text-4xl font-black uppercase italic leading-none text-white">The Roxy</h3>
+<p class="text-gray-300 font-medium">Los Angeles, CA</p>
+</div>
+</div>
+<div class="bg-[#1A1A1A] p-6 rounded-sm border-l-4 border-primary">
+<h4 class="text-white font-bold text-lg mb-2 uppercase">Don't see your city?</h4>
+<p class="text-sm text-gray-400 mb-4">Join the waitlist to be the first to know when we add new legs to the tour.</p>
+<div class="flex gap-2">
+<input class="bg-background-dark border border-[#333] text-white px-4 py-2 text-sm w-full focus:outline-none focus:border-primary" placeholder="YOUR EMAIL" type="email" data-waitlist-input/>
+<button class="bg-[#333] hover:bg-white hover:text-black text-white px-4 py-2 text-sm font-bold uppercase transition-colors" data-action="waitlist">Join</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Ticket Stubs / List -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<!-- Header for List -->
+<div class="flex items-center justify-between mb-4 border-b border-[#333] pb-4">
+<span class="text-gray-500 text-sm font-bold uppercase tracking-widest">2023 / 2024 Season</span>
+<div class="flex items-center gap-2 text-primary text-sm font-bold uppercase cursor-pointer hover:text-white transition-colors" data-action="filter-region">
+<span>Filter by Region</span>
+<span class="material-symbols-outlined text-lg">tune</span>
+</div>
+</div>
+<!-- Item 1: Featured/Next -->
+<div class="group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-surface-dark p-6 rounded-sm border border-primary/50 shadow-[0_0_15px_rgba(212,17,33,0.12)] hover:shadow-[0_0_25px_rgba(212,17,33,0.22)] transition-all duration-300">
+<!-- Date Block -->
+<div class="flex flex-row md:flex-col items-center md:items-start gap-3 min-w-[80px]">
+<span class="text-4xl font-black text-white leading-none">24</span>
+<span class="text-primary font-bold uppercase tracking-wider text-sm">OCT</span>
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col">
+<h3 class="text-2xl font-bold text-white uppercase group-hover:text-primary transition-colors">The Roxy</h3>
+<div class="flex items-center gap-2 text-gray-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium uppercase">Los Angeles, CA</span>
+</div>
+</div>
+<!-- Action -->
+<div class="w-full md:w-auto mt-4 md:mt-0">
+<button class="w-full md:w-auto flex items-center justify-center gap-2 bg-primary text-background-dark px-6 py-3 rounded-sm text-sm font-bold uppercase tracking-wider hover:bg-white transition-colors" data-action="coming-soon">
+<span class="material-symbols-outlined text-lg">confirmation_number</span>
+                                Get Tickets
+                            </button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-transparent hover:bg-surface-dark p-6 rounded-sm border-b border-[#333] hover:border-transparent transition-all duration-300">
+<div class="flex flex-row md:flex-col items-center md:items-start gap-3 min-w-[80px]">
+<span class="text-4xl font-black text-gray-500 group-hover:text-white transition-colors leading-none">28</span>
+<span class="text-gray-500 group-hover:text-primary font-bold uppercase tracking-wider text-sm">OCT</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-xl font-bold text-gray-300 group-hover:text-white uppercase transition-colors">Chain Reaction</h3>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium uppercase">Anaheim, CA</span>
+</div>
+</div>
+<div class="w-full md:w-auto mt-4 md:mt-0">
+<button class="w-full md:w-auto cursor-not-allowed opacity-60 flex items-center justify-center gap-2 border border-[#333] text-gray-400 px-6 py-3 rounded-sm text-sm font-bold uppercase tracking-wider">
+                                Sold Out
+                            </button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-transparent hover:bg-surface-dark p-6 rounded-sm border-b border-[#333] hover:border-transparent transition-all duration-300">
+<div class="flex flex-row md:flex-col items-center md:items-start gap-3 min-w-[80px]">
+<span class="text-4xl font-black text-gray-500 group-hover:text-white transition-colors leading-none">02</span>
+<span class="text-gray-500 group-hover:text-primary font-bold uppercase tracking-wider text-sm">NOV</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-xl font-bold text-gray-300 group-hover:text-white uppercase transition-colors">Emo's</h3>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium uppercase">Austin, TX</span>
+</div>
+</div>
+<div class="w-full md:w-auto mt-4 md:mt-0">
+<button class="w-full md:w-auto flex items-center justify-center gap-2 border border-primary text-primary px-6 py-3 rounded-sm text-sm font-bold uppercase tracking-wider hover:bg-primary hover:text-background-dark transition-colors" data-action="coming-soon">
+                                Tickets
+                            </button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-transparent hover:bg-surface-dark p-6 rounded-sm border-b border-[#333] hover:border-transparent transition-all duration-300">
+<div class="flex flex-row md:flex-col items-center md:items-start gap-3 min-w-[80px]">
+<span class="text-4xl font-black text-gray-500 group-hover:text-white transition-colors leading-none">05</span>
+<span class="text-gray-500 group-hover:text-primary font-bold uppercase tracking-wider text-sm">NOV</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-xl font-bold text-gray-300 group-hover:text-white uppercase transition-colors">The Masquerade</h3>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium uppercase">Atlanta, GA</span>
+</div>
+</div>
+<div class="w-full md:w-auto mt-4 md:mt-0">
+<button class="w-full md:w-auto flex items-center justify-center gap-2 border border-primary text-primary px-6 py-3 rounded-sm text-sm font-bold uppercase tracking-wider hover:bg-primary hover:text-background-dark transition-colors" data-action="coming-soon">
+                                Tickets
+                            </button>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-transparent hover:bg-surface-dark p-6 rounded-sm border-b border-[#333] hover:border-transparent transition-all duration-300">
+<div class="flex flex-row md:flex-col items-center md:items-start gap-3 min-w-[80px]">
+<span class="text-4xl font-black text-gray-500 group-hover:text-white transition-colors leading-none">12</span>
+<span class="text-gray-500 group-hover:text-primary font-bold uppercase tracking-wider text-sm">NOV</span>
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-xl font-bold text-gray-300 group-hover:text-white uppercase transition-colors">Brooklyn Steel</h3>
+<div class="flex items-center gap-2 text-gray-500">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-sm font-medium uppercase">Brooklyn, NY</span>
+</div>
+</div>
+<div class="w-full md:w-auto mt-4 md:mt-0">
+<button class="w-full md:w-auto flex items-center justify-center gap-2 border border-primary text-primary px-6 py-3 rounded-sm text-sm font-bold uppercase tracking-wider hover:bg-primary hover:text-background-dark transition-colors" data-action="coming-soon">
+                                Tickets
+                            </button>
+</div>
+</div>
+<!-- Booking CTA -->
+<div class="mt-8 bg-surface-dark border border-[#333] p-8 md:p-10 rounded-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl text-white">speaker</span>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div>
+<h3 class="text-2xl font-black uppercase text-white mb-2">Want the Krū at your venue?</h3>
+<p class="text-gray-400 text-sm max-w-md">We are currently booking for the European leg of the tour. Contact our management for availability.</p>
+</div>
+<button class="whitespace-nowrap bg-white text-background-dark px-8 py-3 rounded-sm text-sm font-black uppercase tracking-wider hover:bg-primary transition-colors" data-href="contact.html">
+                                Book The Band
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Reviews Section (Carousel Style) -->
+<section class="py-16 md:py-24 border-t border-[#333]">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-4xl md:text-5xl font-black uppercase text-white tracking-tight">The Word on<br/><span class="text-primary stroke-text">The Street</span></h2>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center hover:border-primary hover:bg-[#1a1a1a] transition-all" data-scroll-target="#reviews-scroll" data-scroll-direction="prev">
+<span class="material-symbols-outlined text-white">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-[#333] flex items-center justify-center hover:border-primary hover:bg-[#1a1a1a] transition-all" data-scroll-target="#reviews-scroll" data-scroll-direction="next">
+<span class="material-symbols-outlined text-white">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Snap Scroll Container -->
+<div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory hide-scrollbar" id="reviews-scroll">
+<!-- Review Card 1 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-surface-dark p-8 rounded-sm border border-[#333] flex flex-col justify-between h-[300px] hover:border-primary/50 transition-colors">
+<div>
+<div class="flex gap-1 mb-6 text-primary">
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+</div>
+<p class="text-xl md:text-2xl font-medium text-white leading-relaxed">
+                                "My ears are still ringing and I wouldn't have it any other way. Pure, unfiltered rock and roll."
+                            </p>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+<img alt="Avatar of user" class="w-full h-full object-cover" data-alt="Male fan avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUBjuFVciJMQJdoPcCBrou6yyBAAna3F-6RID5XwdXWkUC6r13OVKhCDC04kpDqLoCnjxzru8s4bC0c73oT6yAkjRJJL1Pxcecoda073Komz6zye9j7RNeD3sKYk6-GR8lgqryWMuEv9StxqbDo6s_6zqMZfp05WpdknbRVSpHF9_eVzaB_LFnK1Ip1JzDfUZNUujP8atzN8J_MkDCdyKpnKqz-l092kcIGg9aM88oZoiKgjazr4_NfIJji5A-XjboU3ZtIbDubpw"/>
+</div>
+<div>
+<div class="text-white font-bold text-sm uppercase">Jax Teller</div>
+<div class="text-gray-500 text-xs uppercase">@RockFan99</div>
+</div>
+</div>
+</div>
+<!-- Review Card 2 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-surface-dark p-8 rounded-sm border border-[#333] flex flex-col justify-between h-[300px] hover:border-primary/50 transition-colors">
+<div>
+<div class="flex gap-1 mb-6 text-primary">
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+</div>
+<p class="text-xl md:text-2xl font-medium text-white leading-relaxed">
+                                "The energy these guys bring to the stage is unmatched. A masterclass in showmanship."
+                            </p>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+<img alt="Avatar of user" class="w-full h-full object-cover" data-alt="Female fan avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKs66nS-djoBGcwXpj8mKrfr5kh8-O4xyZ2bjmOg-57fvm2RQevz3iCVrTILgce5_M88TxlHBkNj3ohqfZL9yYjKUvAS_qyj2Ihcvb9zOpgKztjjkS--GMXy5qkZEwuvReAgbsgV-m6kidgWRql8UXwA3ZyH1PEOSiC1U_pqNY5Jd_6J-Vidn6x-__zLE-uRi0WPryqZEAmzRmkj-WHhTAT1aFyP-TavNB0Ph4Wrv0Fsn-MhAcPB2e50maEeMyR6MYWc3foqRhaVU"/>
+</div>
+<div>
+<div class="text-white font-bold text-sm uppercase">Sarah Connor</div>
+<div class="text-gray-500 text-xs uppercase">Music Blog Weekly</div>
+</div>
+</div>
+</div>
+<!-- Review Card 3 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-surface-dark p-8 rounded-sm border border-[#333] flex flex-col justify-between h-[300px] hover:border-primary/50 transition-colors">
+<div>
+<div class="flex gap-1 mb-6 text-primary">
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<p class="text-xl md:text-2xl font-medium text-white leading-relaxed">
+                                "Sold out show at The Roxy was legendary. If you can get tickets, GO."
+                            </p>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+<img alt="Avatar of user" class="w-full h-full object-cover" data-alt="Male fan avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCphD2kBRuctw-yIlOhkUkrlPUEEiaCK6BIiwPkeoUbZJ_GqEFTyaP-JFEs_Mm0ow_OBxvdm1vIPXkoWonsUOiQzrIc3ZbpX4CoSiiQRDmXcWODZbadqU8_f9ubrILwZ9YmiC1Z8pnfFnl59XLnc1VwpIKL-vRnZzROwJR6o6w0GsuJEDa1BDFCY2oa4kZOzKIhY6JdEWEfuT4lCy6qejW-wA5fd-WgAqiEgzO8BAZHapr6XPCjaZhUBDyRRXGu5IweO_3Tkryop5w"/>
+</div>
+<div>
+<div class="text-white font-bold text-sm uppercase">Mike D.</div>
+<div class="text-gray-500 text-xs uppercase">Verified Fan</div>
+</div>
+</div>
+</div>
+<!-- Review Card 4 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-surface-dark p-8 rounded-sm border border-[#333] flex flex-col justify-between h-[300px] hover:border-primary/50 transition-colors">
+<div>
+<div class="flex gap-1 mb-6 text-primary">
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+<span class="material-symbols-outlined fill-current">bolt</span>
+</div>
+<p class="text-xl md:text-2xl font-medium text-white leading-relaxed">
+                                "Gritty, loud, and unapologetic. SCELETON KRŪ is what rock needed."
+                            </p>
+</div>
+<div class="flex items-center gap-4 mt-6">
+<div class="w-10 h-10 bg-gray-700 rounded-full overflow-hidden">
+<img alt="Avatar of user" class="w-full h-full object-cover" data-alt="Male fan avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmOIrIarcSFe7v16fZ6gpKTx-oOMpMxAugLgkDp2XLhCzsMMmd2uBMvmi3N0r5WnmIVDmV_4SGywYBBfKl3sTd0troPKMB85-E8q2lnAAGYVkL6SvZ8_9pmnHcLaR6gJs_Kvig9dcefOR5zcxhLXjy7oIAhd0u3uLXxcOC2X19ymvMrswpIGziEJSyJTknbPnf2HA-o-eA_lCU_8chxpb_u_3IBT60K9aEw-haT2Ns0RhPTIzYicFAXMyZYNsqlkSuC1rbQO20X_8"/>
+</div>
+<div>
+<div class="text-white font-bold text-sm uppercase">Alex R.</div>
+<div class="text-gray-500 text-xs uppercase">Indie Scene Mag</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0f1112] border-t border-white/5 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="md:col-span-2">
+<div class="mb-6">
+<img alt="Sceleton Krū logo" class="h-10 w-auto" src="images/sceleton-logo.png"/>
+</div>
+<p class="text-gray-400 max-w-sm mb-6">
+                        Bringing the grit back to rock 'n' roll. Based in Los Angeles, heard worldwide. For booking inquiries, contact our management.
+                    </p>
+<div class="flex gap-4">
+<a class="h-10 w-10 flex items-center justify-center rounded-sm bg-surface-dark border border-white/10 text-white hover:bg-primary hover:text-background-dark hover:border-primary transition-all" href="mailto:booking@sceletonkru.com">
+<span class="material-symbols-outlined text-xl">mail</span>
+</a>
+<a class="h-10 w-10 flex items-center justify-center rounded-sm bg-surface-dark border border-white/10 text-white hover:bg-primary hover:text-background-dark hover:border-primary transition-all" href="tel:+13235550199">
+<span class="material-symbols-outlined text-xl">call</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-heading text-lg font-bold text-white uppercase mb-6 tracking-wide">Explore</h4>
+<ul class="space-y-4">
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="gigs&reviews.html">Tour Dates</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="songroaster.html">Discography</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Merchandise</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="bio.html">Band Bios</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-heading text-lg font-bold text-white uppercase mb-6 tracking-wide">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Privacy Policy</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Terms of Service</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Press Kit</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2024 SCELETON KRŪ. All Rights Reserved.</p>
+<p class="text-gray-600 text-xs uppercase tracking-widest">Designed for Rock &amp; Roll</p>
+</div>
+</div>
+</footer>
+<script>
+(() => {
+  const setAttributes = (target, source) => {
+    [...target.attributes].forEach((attr) => target.removeAttribute(attr.name));
+    [...source.attributes].forEach((attr) => target.setAttribute(attr.name, attr.value));
+  };
+
+  const stripScripts = (node) => {
+    node.querySelectorAll("script").forEach((script) => script.remove());
+  };
+
+  const shouldHandleLink = (link) => {
+    const href = link.getAttribute("href");
+    if (!href || href === "#" || href.startsWith("javascript:")) return false;
+    if (href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+    if (link.target === "_blank" || link.hasAttribute("download")) return false;
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin) return false;
+    if (!url.pathname.endsWith(".html") && url.pathname !== "/" && url.pathname !== "") return false;
+    return true;
+  };
+
+  const navigate = async (href, options = {}) => {
+    const url = new URL(href, window.location.href);
+    const targetPath = url.pathname === "/" ? "/index.html" : url.pathname;
+    if (targetPath === window.location.pathname && url.hash === window.location.hash) {
+      if (url.hash) {
+        const el = document.querySelector(url.hash);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+      return;
+    }
+    try {
+      const response = await fetch(targetPath, { cache: "no-cache" });
+      if (!response.ok) {
+        alert("Page not found. Redirecting to the homepage.");
+        return navigate("index.html", { replace: true });
+      }
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const newBody = doc.body;
+      const newHtml = doc.documentElement;
+      stripScripts(newBody);
+      setAttributes(document.documentElement, newHtml);
+      setAttributes(document.body, newBody);
+      document.title = doc.title || document.title;
+      document.body.innerHTML = newBody.innerHTML;
+      const nextUrl = targetPath + url.search + url.hash;
+      if (options.replace) {
+        history.replaceState({}, "", nextUrl);
+      } else {
+        history.pushState({}, "", nextUrl);
+      }
+      if (url.hash) {
+        const el = document.querySelector(url.hash);
+        if (el) {
+          el.scrollIntoView();
+        } else {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
+      if (window.__skeleInit) {
+        window.__skeleInit();
+      }
+    } catch (error) {
+      window.location.href = targetPath;
+    }
+  };
+
+  const bindMenu = () => {
+    document.querySelectorAll("[data-menu]").forEach((menu) => {
+      if (menu.dataset.bound === "true") return;
+      menu.dataset.bound = "true";
+      const toggle = menu.querySelector("[data-menu-toggle]");
+      const dropdown = menu.querySelector("[data-menu-dropdown]");
+      const openIcon = menu.querySelector("[data-menu-open]");
+      const closeIcon = menu.querySelector("[data-menu-close]");
+      if (!toggle || !dropdown || !openIcon || !closeIcon) return;
+      const setOpen = (isOpen) => {
+        dropdown.classList.toggle("hidden", !isOpen);
+        openIcon.classList.toggle("hidden", isOpen);
+        closeIcon.classList.toggle("hidden", !isOpen);
+      };
+      setOpen(false);
+      toggle.addEventListener("click", () => {
+        const shouldOpen = dropdown.classList.contains("hidden");
+        setOpen(shouldOpen);
+      });
+      dropdown.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setOpen(false));
+      });
+    });
+  };
+
+  const bindDataHref = () => {
+    document.querySelectorAll("[data-href]").forEach((el) => {
+      if (el.dataset.bound === "true") return;
+      el.dataset.bound = "true";
+      el.addEventListener("click", (event) => {
+        const href = el.getAttribute("data-href");
+        if (!href) return;
+        event.preventDefault();
+        navigate(href);
+      });
+    });
+  };
+
+  const bindActions = () => {
+    document.querySelectorAll("[data-action]").forEach((el) => {
+      if (el.dataset.bound === "true") return;
+      el.dataset.bound = "true";
+      el.addEventListener("click", (event) => {
+        const action = el.getAttribute("data-action");
+        if (!action) return;
+        event.preventDefault();
+        if (action === "presave") {
+          alert("Pre-save links are opening soon.");
+          return;
+        }
+        if (action === "filter-region") {
+          alert("Region filters will be available soon.");
+          return;
+        }
+        if (action === "coming-soon") {
+          alert("This section is coming soon.");
+          return;
+        }
+        if (action === "waitlist") {
+          const input = document.querySelector("[data-waitlist-input]");
+          const value = input ? input.value.trim() : "";
+          if (!value) {
+            alert("Enter your email to join the waitlist.");
+            return;
+          }
+          if (input) input.value = "";
+          alert("You're on the waitlist. We'll be in touch soon.");
+        }
+      });
+    });
+  };
+
+  const bindForms = () => {
+    document.querySelectorAll("form").forEach((form) => {
+      if (form.dataset.bound === "true") return;
+      form.dataset.bound = "true";
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const inputs = [...form.querySelectorAll("input, textarea")].filter((el) => !el.disabled && el.type !== "hidden");
+        const missing = inputs.some((el) => !el.value || !el.value.trim());
+        if (missing) {
+          alert("Please complete all fields before submitting.");
+          return;
+        }
+        const submitButton = form.querySelector("button[type='submit']");
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.setAttribute("aria-disabled", "true");
+        }
+        setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.removeAttribute("aria-disabled");
+          }
+          form.reset();
+          alert("Thanks! Your request has been received.");
+        }, 700);
+      });
+    });
+  };
+
+  const bindSongFilters = () => {
+    const searchInput = document.querySelector("[data-song-search]");
+    const filterButtons = [...document.querySelectorAll("[data-song-filter]")];
+    const cards = [...document.querySelectorAll("[data-song-card]")];
+    if (!searchInput && filterButtons.length === 0) return;
+    let activeFilter = "All";
+    const applyFilter = () => {
+      const term = searchInput ? searchInput.value.trim().toLowerCase() : "";
+      cards.forEach((card) => {
+        const genre = (card.dataset.genre || "").toLowerCase();
+        const matchesGenre = activeFilter === "All" || genre === activeFilter.toLowerCase();
+        const matchesTerm = !term || card.textContent.toLowerCase().includes(term);
+        card.classList.toggle("hidden", !(matchesGenre && matchesTerm));
+      });
+    };
+    if (searchInput && searchInput.dataset.bound !== "true") {
+      searchInput.dataset.bound = "true";
+      searchInput.addEventListener("input", applyFilter);
+    }
+    filterButtons.forEach((button) => {
+      if (button.dataset.bound === "true") return;
+      button.dataset.bound = "true";
+      button.addEventListener("click", () => {
+        activeFilter = button.getAttribute("data-song-filter") || "All";
+        filterButtons.forEach((btn) => btn.setAttribute("aria-pressed", btn === button ? "true" : "false"));
+        applyFilter();
+      });
+    });
+    applyFilter();
+  };
+
+  const bindScroller = () => {
+    document.querySelectorAll("[data-scroll-target]").forEach((button) => {
+      if (button.dataset.bound === "true") return;
+      button.dataset.bound = "true";
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const targetSelector = button.getAttribute("data-scroll-target");
+        const direction = button.getAttribute("data-scroll-direction") || "next";
+        const target = targetSelector ? document.querySelector(targetSelector) : null;
+        if (!target) return;
+        const scrollAmount = Math.round(target.clientWidth * 0.85);
+        target.scrollBy({
+          left: direction === "prev" ? -scrollAmount : scrollAmount,
+          behavior: "smooth",
+        });
+      });
+    });
+  };
+
+  const bindRouter = () => {
+    if (window.__skeleRouterBound) return;
+    window.__skeleRouterBound = true;
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a");
+      if (!link || !shouldHandleLink(link)) return;
+      event.preventDefault();
+      navigate(link.href);
+    });
+    window.addEventListener("popstate", () => navigate(window.location.href, { replace: true }));
+  };
+
+  window.__skeleInit = () => {
+    bindMenu();
+    bindDataHref();
+    bindActions();
+    bindForms();
+    bindSongFilters();
+    bindScroller();
+  };
+
+  bindRouter();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => window.__skeleInit());
+  } else {
+    window.__skeleInit();
+  }
+})();
+</script>
+</body></html>

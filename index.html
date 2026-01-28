@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SCELETON KRŪ - Official Band Website</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#D41121",
+                        "background-light": "#fcf7f3", // Kept for config compliance, but mostly unused in this dark theme
+                        "background-dark": "#121212",
+                        "surface-dark": "#1a1a1a",
+                        "bone-white": "#F9F7F5",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "heading": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem", 
+                        "lg": "0.25rem", 
+                        "xl": "0.5rem", 
+                        "full": "0.75rem"
+                    },
+                    backgroundImage: {
+                        'grunge-overlay': 'linear-gradient(rgba(18, 18, 18, 0.95), rgba(18, 18, 18, 0.85))',
+                    }
+                },
+            },
+        }
+    </script>
+<style>/* Custom Grunge/Grain effect overlay */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 40;
+    opacity: 0.05;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDOiQYYwOGw9nbx7VDKq0zOWuEWz4HcOjpeTLcwMoUlrZ5bm3eUmd2cKLmoiVa_akBqcBlA-EJEW3r-WTbJ_JZx6GTmVuhXAqzjt2-YQRJbmaaDK3nSbvQ_Akg1deLrbot2PN5iULQTVPj58zcxhXBPIq2zX1CqXtxK5v28HspaThank4a0J-iFXO7UYMMvZ7fMeeITpoix37TuPhvlCJ40CmCEW_f2LbQ5LvQRTeaSuu9C2No21iAEdwVZUBnS7u5XP6GFeVe1Lqw)
+    }
+.electric-glow {
+    text-shadow: 0 0 15px rgba(212, 17, 33, 0.4)
+    }
+.clip-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%)
+    }</style>
+<script>
+(() => {
+  const setAttributes = (target, source) => {
+    [...target.attributes].forEach((attr) => target.removeAttribute(attr.name));
+    [...source.attributes].forEach((attr) => target.setAttribute(attr.name, attr.value));
+  };
+
+  const stripScripts = (node) => {
+    node.querySelectorAll("script").forEach((script) => script.remove());
+  };
+
+  const shouldHandleLink = (link) => {
+    const href = link.getAttribute("href");
+    if (!href || href === "#" || href.startsWith("javascript:")) return false;
+    if (href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+    if (link.target === "_blank" || link.hasAttribute("download")) return false;
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin) return false;
+    if (!url.pathname.endsWith(".html") && url.pathname !== "/" && url.pathname !== "") return false;
+    return true;
+  };
+
+  const navigate = async (href, options = {}) => {
+    const url = new URL(href, window.location.href);
+    const targetPath = url.pathname === "/" ? "/index.html" : url.pathname;
+    if (targetPath === window.location.pathname && url.hash === window.location.hash) {
+      if (url.hash) {
+        const el = document.querySelector(url.hash);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+      return;
+    }
+    try {
+      const response = await fetch(targetPath, { cache: "no-cache" });
+      if (!response.ok) {
+        alert("Page not found. Redirecting to the homepage.");
+        return navigate("index.html", { replace: true });
+      }
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const newBody = doc.body;
+      const newHtml = doc.documentElement;
+      stripScripts(newBody);
+      setAttributes(document.documentElement, newHtml);
+      setAttributes(document.body, newBody);
+      document.title = doc.title || document.title;
+      document.body.innerHTML = newBody.innerHTML;
+      const nextUrl = targetPath + url.search + url.hash;
+      if (options.replace) {
+        history.replaceState({}, "", nextUrl);
+      } else {
+        history.pushState({}, "", nextUrl);
+      }
+      if (url.hash) {
+        const el = document.querySelector(url.hash);
+        if (el) {
+          el.scrollIntoView();
+        } else {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
+      if (window.__skeleInit) {
+        window.__skeleInit();
+      }
+    } catch (error) {
+      window.location.href = targetPath;
+    }
+  };
+
+  const bindMenu = () => {
+    document.querySelectorAll("[data-menu]").forEach((menu) => {
+      if (menu.dataset.bound === "true") return;
+      menu.dataset.bound = "true";
+      const toggle = menu.querySelector("[data-menu-toggle]");
+      const dropdown = menu.querySelector("[data-menu-dropdown]");
+      const openIcon = menu.querySelector("[data-menu-open]");
+      const closeIcon = menu.querySelector("[data-menu-close]");
+      if (!toggle || !dropdown || !openIcon || !closeIcon) return;
+      const setOpen = (isOpen) => {
+        dropdown.classList.toggle("hidden", !isOpen);
+        openIcon.classList.toggle("hidden", isOpen);
+        closeIcon.classList.toggle("hidden", !isOpen);
+      };
+      setOpen(false);
+      toggle.addEventListener("click", () => {
+        const shouldOpen = dropdown.classList.contains("hidden");
+        setOpen(shouldOpen);
+      });
+      dropdown.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setOpen(false));
+      });
+    });
+  };
+
+  const bindDataHref = () => {
+    document.querySelectorAll("[data-href]").forEach((el) => {
+      if (el.dataset.bound === "true") return;
+      el.dataset.bound = "true";
+      el.addEventListener("click", (event) => {
+        const href = el.getAttribute("data-href");
+        if (!href) return;
+        event.preventDefault();
+        navigate(href);
+      });
+    });
+  };
+
+  const bindActions = () => {
+    document.querySelectorAll("[data-action]").forEach((el) => {
+      if (el.dataset.bound === "true") return;
+      el.dataset.bound = "true";
+      el.addEventListener("click", (event) => {
+        const action = el.getAttribute("data-action");
+        if (!action) return;
+        event.preventDefault();
+        if (action === "presave") {
+          alert("Pre-save links are opening soon.");
+          return;
+        }
+        if (action === "filter-region") {
+          alert("Region filters will be available soon.");
+          return;
+        }
+        if (action === "coming-soon") {
+          alert("This section is coming soon.");
+          return;
+        }
+        if (action === "waitlist") {
+          const input = document.querySelector("[data-waitlist-input]");
+          const value = input ? input.value.trim() : "";
+          if (!value) {
+            alert("Enter your email to join the waitlist.");
+            return;
+          }
+          if (input) input.value = "";
+          alert("You're on the waitlist. We'll be in touch soon.");
+        }
+      });
+    });
+  };
+
+  const bindForms = () => {
+    document.querySelectorAll("form").forEach((form) => {
+      if (form.dataset.bound === "true") return;
+      form.dataset.bound = "true";
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const inputs = [...form.querySelectorAll("input, textarea")].filter((el) => !el.disabled && el.type !== "hidden");
+        const missing = inputs.some((el) => !el.value || !el.value.trim());
+        if (missing) {
+          alert("Please complete all fields before submitting.");
+          return;
+        }
+        const submitButton = form.querySelector("button[type='submit']");
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.setAttribute("aria-disabled", "true");
+        }
+        setTimeout(() => {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.removeAttribute("aria-disabled");
+          }
+          form.reset();
+          alert("Thanks! Your request has been received.");
+        }, 700);
+      });
+    });
+  };
+
+  const bindSongFilters = () => {
+    const searchInput = document.querySelector("[data-song-search]");
+    const filterButtons = [...document.querySelectorAll("[data-song-filter]")];
+    const cards = [...document.querySelectorAll("[data-song-card]")];
+    if (!searchInput && filterButtons.length === 0) return;
+    let activeFilter = "All";
+    const applyFilter = () => {
+      const term = searchInput ? searchInput.value.trim().toLowerCase() : "";
+      cards.forEach((card) => {
+        const genre = (card.dataset.genre || "").toLowerCase();
+        const matchesGenre = activeFilter === "All" || genre === activeFilter.toLowerCase();
+        const matchesTerm = !term || card.textContent.toLowerCase().includes(term);
+        card.classList.toggle("hidden", !(matchesGenre && matchesTerm));
+      });
+    };
+    if (searchInput && searchInput.dataset.bound !== "true") {
+      searchInput.dataset.bound = "true";
+      searchInput.addEventListener("input", applyFilter);
+    }
+    filterButtons.forEach((button) => {
+      if (button.dataset.bound === "true") return;
+      button.dataset.bound = "true";
+      button.addEventListener("click", () => {
+        activeFilter = button.getAttribute("data-song-filter") || "All";
+        filterButtons.forEach((btn) => btn.setAttribute("aria-pressed", btn === button ? "true" : "false"));
+        applyFilter();
+      });
+    });
+    applyFilter();
+  };
+
+  const bindScroller = () => {
+    document.querySelectorAll("[data-scroll-target]").forEach((button) => {
+      if (button.dataset.bound === "true") return;
+      button.dataset.bound = "true";
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const targetSelector = button.getAttribute("data-scroll-target");
+        const direction = button.getAttribute("data-scroll-direction") || "next";
+        const target = targetSelector ? document.querySelector(targetSelector) : null;
+        if (!target) return;
+        const scrollAmount = Math.round(target.clientWidth * 0.85);
+        target.scrollBy({
+          left: direction === "prev" ? -scrollAmount : scrollAmount,
+          behavior: "smooth",
+        });
+      });
+    });
+  };
+
+  const bindRouter = () => {
+    if (window.__skeleRouterBound) return;
+    window.__skeleRouterBound = true;
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest("a");
+      if (!link || !shouldHandleLink(link)) return;
+      event.preventDefault();
+      navigate(link.href);
+    });
+    window.addEventListener("popstate", () => navigate(window.location.href, { replace: true }));
+  };
+
+  window.__skeleInit = () => {
+    bindMenu();
+    bindDataHref();
+    bindActions();
+    bindForms();
+    bindSongFilters();
+    bindScroller();
+  };
+
+  bindRouter();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => window.__skeleInit());
+  } else {
+    window.__skeleInit();
+  }
+})();
+</script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-bone-white font-display overflow-x-hidden selection:bg-primary selection:text-black">
+<!-- Noise Texture Overlay -->
+<div class="noise-overlay"></div>
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/90 backdrop-blur-md" data-menu>
+<div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+<!-- Logo -->
+<div class="flex items-center">
+<a href="index.html">
+<img alt="Sceleton Krū logo" class="h-10 w-auto" src="images/sceleton-logo.png"/>
+</a>
+</div>
+<!-- Desktop Menu -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="gigs&reviews.html">Tour</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="songroaster.html">Music</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="bio.html">The Band</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="contact.html">Contact</a>
+</div>
+<!-- CTA -->
+<div class="hidden md:block">
+<a class="bg-primary text-background-dark hover:bg-white transition-all duration-300 font-bold text-sm px-6 py-2.5 rounded-sm uppercase tracking-wider transform hover:-translate-y-0.5 inline-flex items-center" href="contact.html">
+                    Book Now
+                </a>
+</div>
+<!-- Mobile Menu Icon -->
+<button class="md:hidden text-white" type="button" data-menu-toggle>
+<span class="material-symbols-outlined text-3xl" data-menu-open>menu</span>
+<span class="material-symbols-outlined text-3xl hidden" data-menu-close>close</span>
+</button>
+</div>
+<div class="md:hidden hidden border-t border-white/10 bg-background-dark/95 backdrop-blur-md" data-menu-dropdown>
+<div class="px-6 py-4 flex flex-col gap-4">
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="gigs&reviews.html">Tour</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="songroaster.html">Music</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="bio.html">The Band</a>
+<a class="text-sm font-semibold uppercase tracking-wide text-white/80 hover:text-primary transition-colors" href="contact.html">Contact</a>
+<a class="bg-primary text-background-dark hover:bg-white transition-all duration-300 font-bold text-sm px-6 py-2.5 rounded-sm uppercase tracking-wider text-center" href="contact.html">Book Now</a>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative flex min-h-[90vh] w-full flex-col items-center justify-center overflow-hidden pb-16 md:pb-20">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="High energy rock concert crowd with stage lights and smoke" class="h-full w-full object-cover object-center  contrast-125" data-alt="High energy rock concert crowd with stage lights and smoke" src="images/Background-hero-image.jpg"/>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/80 via-transparent to-background-dark/80"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 container mx-auto px-6 text-center md:text-left flex flex-col md:items-start max-w-7xl pt-20">
+<div class="space-y-2 mb-8 animate-fade-in-up">
+<h2 class="text-primary font-display font-medium tracking-[0.2em] uppercase text-sm md:text-base mb-4 border-l-2 border-primary pl-4">
+                    Official Band Website
+                </h2>
+<h1 class="font-heading text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] tracking-tighter uppercase electric-glow mix-blend-screen">
+                    SCELETON<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">KRŪ</span>
+</h1>
+</div>
+<p class="max-w-xl text-lg md:text-xl text-gray-300 font-light mb-10 pl-1 md:pl-2 border-l-0 md:border-l border-white/20">
+                This Ain't Your Mama's Classic Rock! Gritty, loud, and unapologetic. Experience the raw energy of the underground.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="bg-primary text-background-dark border border-primary font-bold text-base px-8 py-4 rounded-sm uppercase tracking-wider hover:bg-white hover:border-white transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2 group" data-href="contact.html">
+<span>Book the Band</span>
+<span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="bg-transparent text-white border border-white/30 font-bold text-base px-8 py-4 rounded-sm uppercase tracking-wider hover:border-primary hover:text-primary transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2" data-href="gigs&reviews.html">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Upcoming Gigs</span>
+</button>
+</div>
+</div>
+<!-- Scrolling Text Strip at Bottom of Hero -->
+<div class="absolute bottom-0 w-full bg-primary/10 border-t border-primary/20 backdrop-blur-sm overflow-hidden py-3">
+<div class="whitespace-nowrap flex gap-8 items-center animate-marquee opacity-70">
+<!-- Repeated content for marquee illusion (CSS animation not included but structure supports it) -->
+<span class="text-primary font-heading font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">bolt</span> Live at The Roxy - Nov 12
+                </span>
+<span class="text-primary font-heading font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">bolt</span> New Single "Midnight Highway" Out Now
+                </span>
+<span class="text-primary font-heading font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">bolt</span> West Coast Tour Summer 2024
+                </span>
+<span class="text-primary font-heading font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">bolt</span> Live at The Roxy - Nov 12
+                </span>
+<span class="text-primary font-heading font-bold uppercase tracking-widest text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">bolt</span> New Single "Midnight Highway" Out Now
+                </span>
+</div>
+</div>
+</section>
+<!-- News & Gigs Section -->
+<section class="py-24 px-6 bg-background-dark relative clip-slant">
+<!-- Background Accent -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-surface-dark to-transparent -z-10"></div>
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div>
+<h2 class="font-heading text-4xl md:text-6xl font-bold text-white uppercase mb-2 tracking-tight">
+                        Latest <span class="text-primary">News</span> &amp; Gigs
+                    </h2>
+<div class="h-1 w-24 bg-primary"></div>
+</div>
+<p class="text-gray-400 max-w-sm text-sm md:text-base leading-relaxed">
+                    Catch the electric energy live. Check out where we are playing next or read about our latest studio sessions.
+                </p>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="group relative bg-surface-dark border border-white/5 p-8 rounded-sm hover:border-primary/50 transition-colors duration-300" data-href="gigs&reviews.html">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-4xl">event_available</span>
+</div>
+<div class="text-primary text-sm font-bold uppercase tracking-wider mb-4">Nov 12, 2024</div>
+<h3 class="font-heading text-2xl text-white font-bold mb-3 group-hover:text-primary transition-colors">Live at The Roxy</h3>
+<p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Join us for a night of classic rock mayhem this Friday. Special guest appearance by The Iron Horses.
+                    </p>
+<a class="inline-flex items-center text-white text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5" href="gigs&reviews.html">
+                        Get Tickets <span class="material-symbols-outlined text-base ml-1">arrow_outward</span>
+</a>
+</article>
+<!-- Card 2 -->
+<article class="group relative bg-surface-dark border border-white/5 p-8 rounded-sm hover:border-primary/50 transition-colors duration-300" data-action="presave">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-4xl">music_note</span>
+</div>
+<div class="text-primary text-sm font-bold uppercase tracking-wider mb-4">New Release</div>
+<h3 class="font-heading text-2xl text-white font-bold mb-3 group-hover:text-primary transition-colors">New Single Drop</h3>
+<p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        'Midnight Highway' is hitting all streaming platforms next week. Pre-save now on Spotify.
+                    </p>
+<a class="inline-flex items-center text-white text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5" href="#" data-action="presave">
+                        Pre-save <span class="material-symbols-outlined text-base ml-1">arrow_outward</span>
+</a>
+</article>
+<!-- Card 3 -->
+<article class="group relative bg-surface-dark border border-white/5 p-8 rounded-sm hover:border-primary/50 transition-colors duration-300" data-href="gigs&reviews.html">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-4xl">tour</span>
+</div>
+<div class="text-primary text-sm font-bold uppercase tracking-wider mb-4">Tour Update</div>
+<h3 class="font-heading text-2xl text-white font-bold mb-3 group-hover:text-primary transition-colors">Summer Tour '24</h3>
+<p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        We are hitting the road across the West Coast starting July. Check the dates and grab your pass.
+                    </p>
+<a class="inline-flex items-center text-white text-sm font-bold uppercase tracking-wider hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5" href="gigs&reviews.html">
+                        View Dates <span class="material-symbols-outlined text-base ml-1">arrow_outward</span>
+</a>
+</article>
+</div>
+</div>
+</section>
+<!-- Band Promo / Visual Break -->
+<section class="py-20 bg-black relative">
+<div class="absolute inset-0 z-0 opacity-30">
+<img alt="Gritty abstract texture of amps and cables" class="h-full w-full object-cover grayscale" data-alt="Gritty abstract texture of amps and cables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe0ZS-PBquUcUd-R0CKrmkh4VxHrWDKcRK-R3FMLY3LwM7I6u8tVZwOSYUR5r7DUgKLKvqGxBqGGzPZiD3WUOMB-ipXFNIqwzN5PNHfJpTj2fjXjPcUnVZzYS1WG0_G5CqEXsvp-BUGyMAH_XQdaFcT91TWEeIKEzTNKpxrVF1cgiIMBQjmvx0JgjSAegppJJ4zHltVXo9MNtwfXsTG7-HDosMFN5AdYV_1EoJ5qfcPj4-XGW_c-ZZM-DbUEtVIRhFRyihLf6JT3U"/>
+</div>
+<div class="container mx-auto px-6 relative z-10 text-center">
+<h2 class="font-heading text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 uppercase mb-8">
+                Raw. Loud. Real.
+            </h2>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70">
+<!-- Social Proof Icons -->
+<a class="flex items-center gap-2 group cursor-pointer" href="https://open.spotify.com" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-4xl group-hover:text-[#1DB954] transition-colors">play_circle</span>
+<span class="font-heading font-bold uppercase text-lg">Spotify</span>
+</a>
+<a class="flex items-center gap-2 group cursor-pointer" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-4xl group-hover:text-[#FF0000] transition-colors">play_arrow</span>
+<span class="font-heading font-bold uppercase text-lg">YouTube</span>
+</a>
+<a class="flex items-center gap-2 group cursor-pointer" href="https://www.instagram.com" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-4xl group-hover:text-[#E1306C] transition-colors">photo_camera</span>
+<span class="font-heading font-bold uppercase text-lg">Instagram</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#0f1112] border-t border-white/5 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<!-- Brand -->
+<div class="md:col-span-2">
+<div class="mb-6">
+<img alt="Sceleton Krū logo" class="h-10 w-auto" src="images/sceleton-logo.png"/>
+</div>
+<p class="text-gray-400 max-w-sm mb-6">
+                        Bringing the grit back to rock 'n' roll. Based in Los Angeles, heard worldwide. For booking inquiries, contact our management.
+                    </p>
+<div class="flex gap-4">
+<a class="h-10 w-10 flex items-center justify-center rounded-sm bg-surface-dark border border-white/10 text-white hover:bg-primary hover:text-background-dark hover:border-primary transition-all" href="mailto:booking@sceletonkru.com">
+<span class="material-symbols-outlined text-xl">mail</span>
+</a>
+<a class="h-10 w-10 flex items-center justify-center rounded-sm bg-surface-dark border border-white/10 text-white hover:bg-primary hover:text-background-dark hover:border-primary transition-all" href="tel:+13235550199">
+<span class="material-symbols-outlined text-xl">call</span>
+</a>
+</div>
+</div>
+<!-- Navigation Links -->
+<div>
+<h4 class="font-heading text-lg font-bold text-white uppercase mb-6 tracking-wide">Explore</h4>
+<ul class="space-y-4">
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="gigs&reviews.html">Tour Dates</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="songroaster.html">Discography</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Merchandise</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="bio.html">Band Bios</a></li>
+</ul>
+</div>
+<!-- Legal/Misc -->
+<div>
+<h4 class="font-heading text-lg font-bold text-white uppercase mb-6 tracking-wide">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Privacy Policy</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Terms of Service</a></li>
+<li><a class="text-gray-400 hover:text-primary transition-colors text-sm uppercase tracking-wide" href="#" data-action="coming-soon">Press Kit</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2024 SCELETON KRŪ. All Rights Reserved.</p>
+<p class="text-gray-600 text-xs uppercase tracking-widest">Designed for Rock &amp; Roll</p>
+</div>
+</div>
+</footer>
+</body></html>
